@@ -37,11 +37,7 @@ function Wordgrid() {
   }, []); // Empty dependency array ensures this runs once when component mounts
 
   return (
-    <Container
-      component="section"
-      sx={{ p: 2, border: "1px dashed grey", width: "100%" }}
-      maxWidth="xs"
-    >
+    <Container component="section" sx={{ p: 2, width: "100%" }} maxWidth="xs">
       <h1>Wordle Clone</h1>
       {loading && <p>Loading...</p>}
       {!loading &&
