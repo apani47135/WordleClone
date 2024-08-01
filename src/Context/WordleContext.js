@@ -4,6 +4,7 @@ import React, { createContext, useReducer } from "react";
 const INCREMENT = "INCREMENT";
 const FINISH_GAME = "FINISH_GAME";
 const SET_WORD = "SET_WORD";
+const SET_LETTERS_GUESSED = "SET_LETTERS_GUESSED";
 
 // Initial state
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   finished: false,
   game_won: false,
   wordToGuess: "",
+  lettersGuessed: [],
 };
 // Reducer function
 const wordleReducer = (state, action) => {
@@ -22,6 +24,23 @@ const wordleReducer = (state, action) => {
     case SET_WORD:
       console.log("Setting word:", action.word);
       return { ...state, wordToGuess: action.word.toUpperCase() };
+    case SET_LETTERS_GUESSED:
+      const index = state.lettersGuessed.findIndex(
+        (item) => item.currentLetter === action.lettersGuessed.currentLetter
+      );
+      if (index != -1) {
+        const updatedData = state.lettersGuessed;
+        updatedData[index] = {
+          ...updatedData[index],
+          color: action.lettersGuessed.color,
+        };
+        return { ...state, lettersGuessed: updatedData };
+      }
+      const newLettersGuessed = [
+        ...state.lettersGuessed,
+        action.lettersGuessed,
+      ];
+      return { ...state, lettersGuessed: newLettersGuessed };
 
     default:
       return state;

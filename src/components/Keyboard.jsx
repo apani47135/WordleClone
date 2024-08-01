@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Button } from "@mui/material";
+import { WordleContext } from "../Context/WordleContext";
 
 const keys = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -8,6 +9,19 @@ const keys = [
 ];
 
 function Keyboard() {
+  const { state } = useContext(WordleContext);
+
+  const hasLetterBeenUsed = (letter) => {
+    console.log("in here");
+    // Find the object with the specified id
+    const foundObject = state.lettersGuessed.find(
+      (item) => item.currentLetter === letter
+    );
+
+    // Return the age of the found object or a default value if not found
+    return foundObject ? foundObject.color : "";
+  };
+
   const simulateKeyPress = (key) => {
     const event = new KeyboardEvent("keydown", {
       key: key,
@@ -42,6 +56,7 @@ function Keyboard() {
                 minWidth: 0,
                 padding: "10px 0",
                 fontSize: "1rem",
+                backgroundColor: hasLetterBeenUsed(key),
               }}
             >
               {key}

@@ -25,6 +25,10 @@ function Wordrow(props) {
         result[i] = "green";
         solutionMatches[i] = true;
         guessMatches[i] = true;
+        dispatch({
+          type: "SET_LETTERS_GUESSED",
+          lettersGuessed: { currentLetter: guess[i], color: "green" },
+        });
       }
     }
 
@@ -35,6 +39,10 @@ function Wordrow(props) {
         for (let j = 0; j < solution.length; j++) {
           if (!solutionMatches[j] && guess[i] === solution[j]) {
             result[i] = "yellow";
+            dispatch({
+              type: "SET_LETTERS_GUESSED",
+              lettersGuessed: { currentLetter: guess[i], color: "yellow" },
+            });
             solutionMatches[j] = true;
             break;
           }
@@ -42,6 +50,10 @@ function Wordrow(props) {
       }
       if (!result[i]) {
         result[i] = "gray"; // Mark unmatched letters with blank
+        dispatch({
+          type: "SET_LETTERS_GUESSED",
+          lettersGuessed: { currentLetter: guess[i], color: "gray" },
+        });
       }
     }
 
