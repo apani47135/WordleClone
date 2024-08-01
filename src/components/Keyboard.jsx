@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const keys = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -19,48 +19,52 @@ function Keyboard() {
 
     window.dispatchEvent(event);
   };
+
   return (
     <Box sx={{ mt: 2 }}>
       {keys.map((row, rowIndex) => (
-        <Grid container spacing={0} justifyContent="center" key={rowIndex}>
+        <Box
+          key={rowIndex}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 0.5,
+            mb: 1,
+          }}
+        >
           {row.map((key) => (
-            <Grid item key={key}>
-              <Button
-                variant="contained"
-                onClick={() => simulateKeyPress(key)}
-                sx={{
-                  maxWidth: "30px",
-                  maxHeight: "30px",
-                  margin: "2px",
-                  fontSize: "1rem",
-                }}
-              >
-                {key}
-              </Button>
-            </Grid>
+            <Button
+              key={key}
+              variant="contained"
+              onClick={() => simulateKeyPress(key)}
+              sx={{
+                flex: 1,
+                minWidth: 0,
+                padding: "10px 0",
+                fontSize: "1rem",
+              }}
+            >
+              {key}
+            </Button>
           ))}
-        </Grid>
+        </Box>
       ))}
-      <Grid container spacing={1} justifyContent="center">
-        <Grid item>
-          <Button
-            variant="contained"
-            onClick={() => simulateKeyPress("Enter")}
-            sx={{ minWidth: "70px", minHeight: "40px", margin: "5px" }}
-          >
-            Enter
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            onClick={() => simulateKeyPress("Backspace")}
-            sx={{ minWidth: "70px", minHeight: "40px", margin: "5px" }}
-          >
-            Backspace
-          </Button>
-        </Grid>
-      </Grid>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: 0.5 }}>
+        <Button
+          variant="contained"
+          onClick={() => simulateKeyPress("Backspace")}
+          sx={{ flex: 1, minWidth: 0, padding: "10px 0", fontSize: "1rem" }}
+        >
+          Backspace
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => simulateKeyPress("Enter")}
+          sx={{ flex: 1, minWidth: 0, padding: "10px 0", fontSize: "1rem" }}
+        >
+          Enter
+        </Button>
+      </Box>
     </Box>
   );
 }
