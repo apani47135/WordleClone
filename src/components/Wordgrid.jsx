@@ -3,9 +3,12 @@ import Wordrow from "./Wordrow";
 import { WordleContext } from "../Context/WordleContext";
 import { Container } from "@mui/material";
 import GameLost from "./GameLost";
+import Keyboard from "./Keyboard";
+import IsMobile from "../Hooks/IsMobile";
 
 function Wordgrid() {
   const { state, dispatch } = useContext(WordleContext);
+  const isMobile = IsMobile();
   console.log(state);
   const items = Array(6).fill(null);
   const [loading, setLoading] = useState(true);
@@ -55,6 +58,7 @@ function Wordgrid() {
         </div>
       )}
       {!loading && state.finished && !state.game_won && <GameLost />}
+      {!loading && !state.finished && isMobile && <Keyboard />}
     </Container>
   );
 }

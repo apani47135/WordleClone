@@ -7,20 +7,31 @@ const keys = [
   ["Z", "X", "C", "V", "B", "N", "M"],
 ];
 
-function CustomKeyboard({ onKeyPress }) {
+function Keyboard() {
+  const simulateKeyPress = (key) => {
+    const event = new KeyboardEvent("keydown", {
+      key: key,
+      code: `Key${key.toUpperCase()}`,
+      keyCode: key.charCodeAt(0),
+      charCode: key.charCodeAt(0),
+      bubbles: true,
+    });
+
+    window.dispatchEvent(event);
+  };
   return (
     <Box sx={{ mt: 2 }}>
       {keys.map((row, rowIndex) => (
-        <Grid container spacing={1} justifyContent="center" key={rowIndex}>
+        <Grid container spacing={0} justifyContent="center" key={rowIndex}>
           {row.map((key) => (
             <Grid item key={key}>
               <Button
                 variant="contained"
-                onClick={() => onKeyPress(key)}
+                onClick={() => simulateKeyPress(key)}
                 sx={{
-                  minWidth: "40px",
-                  minHeight: "40px",
-                  margin: "5px",
+                  maxWidth: "30px",
+                  maxHeight: "30px",
+                  margin: "2px",
                   fontSize: "1rem",
                 }}
               >
@@ -34,7 +45,7 @@ function CustomKeyboard({ onKeyPress }) {
         <Grid item>
           <Button
             variant="contained"
-            onClick={() => onKeyPress("Enter")}
+            onClick={() => simulateKeyPress("Enter")}
             sx={{ minWidth: "70px", minHeight: "40px", margin: "5px" }}
           >
             Enter
@@ -43,7 +54,7 @@ function CustomKeyboard({ onKeyPress }) {
         <Grid item>
           <Button
             variant="contained"
-            onClick={() => onKeyPress("Backspace")}
+            onClick={() => simulateKeyPress("Backspace")}
             sx={{ minWidth: "70px", minHeight: "40px", margin: "5px" }}
           >
             Backspace
@@ -54,4 +65,4 @@ function CustomKeyboard({ onKeyPress }) {
   );
 }
 
-export default CustomKeyboard;
+export default Keyboard;
